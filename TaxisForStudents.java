@@ -1,29 +1,42 @@
 import java.util.Scanner;
 
 public class TaxisForStudents {
+    static final int MINIMUM_STUDENTS = 1;
     static final int STUDENTS_PER_TAXI = 10;
     static final int DONATION_PER_TAXI = 200;
 
     public static void main(String[] args) {
-
-        int numberOfStudents = getNumberOfStudents();
+        Scanner scanner = new Scanner(System.in);
+        int numberOfStudents = getNumberOfStudents(scanner, "Enter the number of students (positive integer): ", MINIMUM_STUDENTS, "Please enter a positive integer.");
+        scanner.close();
         processAndDisplayResults(numberOfStudents);
     }
 
-    private static int getNumberOfStudents() {
-        final int MINIMUM_STUDENTS = 1;
-        Scanner scanner = new Scanner(System.in);
-        int numberOfStudents;
-        do {
-            System.out.print("Enter the number of students (positive integer): ");
-            while (!scanner.hasNextInt()) {
-                System.out.print("Invalid input. \nPlease enter a positive integer: ");
+    /**
+     * This method validates that the user enters a positive integer number of students.
+     *
+     * @param scanner The scanner object used for reading input.
+     * @param prompt The message to display to the user.
+     * @param minValue The minimum acceptable value for the input.
+     * @param errorMessage The error message displayed when the input is below the minimum.
+     * @return The validated integer input representing the number of students.
+     */
+    private static int getNumberOfStudents(Scanner scanner, String prompt, int minValue, String errorMessage) {
+        int inputValue;
+        while (true) {
+            System.out.print(prompt);
+            if (scanner.hasNextInt()) {
+                inputValue = scanner.nextInt();
+                if (inputValue >= minValue) {
+                    return inputValue;
+                } else {
+                    System.out.println(errorMessage);
+                }
+            } else {
+                System.out.println(errorMessage);
                 scanner.next();
             }
-            numberOfStudents = scanner.nextInt();
-        } while (numberOfStudents < MINIMUM_STUDENTS);
-        scanner.close();
-        return numberOfStudents;
+        }
     }
 
     private static int calculateFullTaxis(int students) {
