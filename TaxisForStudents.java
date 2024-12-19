@@ -1,27 +1,53 @@
 import java.util.Scanner;
 
 public class TaxisForStudents {
+    static final int STUDENTS_PER_TAXI = 10;
+    static final int DONATION_PER_TAXI = 200;
+
     public static void main(String[] args) {
+
+        int numberOfStudents = getNumberOfStudents();
+        processAndDisplayResults(numberOfStudents);
+    }
+
+    private static int getNumberOfStudents() {
+        final int MINIMUM_STUDENTS = 1;
         Scanner scanner = new Scanner(System.in);
-
-        // Input: number of students
-        System.out.print("Enter the number of students: ");
-        int numberOfStudents = scanner.nextInt();
-
-        // Calculate the number of full taxis (each can hold 10 students)
-        int fullTaxis = numberOfStudents / 10;
-
-        // Calculate the number of students remaining (not in a full taxi)
-        int remainingStudents = numberOfStudents % 10;
-
-        // Calculate the total donation (200 ₪ per full taxi)
-        int totalDonation = fullTaxis * 200;
-
-        // Print the results
-        System.out.println("Number of full taxis: " + fullTaxis);
-        System.out.println("Number of remaining students: " + remainingStudents);
-        System.out.println("Total donation: " + totalDonation + " ₪");
-
+        int numberOfStudents;
+        do {
+            System.out.print("Enter the number of students (positive integer): ");
+            while (!scanner.hasNextInt()) {
+                System.out.print("Invalid input. \nPlease enter a positive integer: ");
+                scanner.next();
+            }
+            numberOfStudents = scanner.nextInt();
+        } while (numberOfStudents < MINIMUM_STUDENTS);
         scanner.close();
+        return numberOfStudents;
+    }
+
+    private static int calculateFullTaxis(int students) {
+        return students / STUDENTS_PER_TAXI;
+    }
+
+    private static int calculateRemainingStudents(int students) {
+        return students % STUDENTS_PER_TAXI;
+    }
+
+    private static int calculateTotalDonation(int taxis) {
+        return taxis * DONATION_PER_TAXI;
+    }
+
+    private static void displayResults(int taxis, int remaining, int donation) {
+        System.out.println("Number of full taxis: " + taxis);
+        System.out.println("Number of remaining students: " + remaining);
+        System.out.println("Total donation: " + donation + " ₪");
+    }
+
+    private static void processAndDisplayResults(int students) {
+        int fullTaxis = calculateFullTaxis(students);
+        int remainingStudents = calculateRemainingStudents(students);
+        int totalDonation = calculateTotalDonation(fullTaxis);
+        displayResults(fullTaxis, remainingStudents, totalDonation);
     }
 }
