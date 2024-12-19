@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class TaxisForStudents {
+
+    // Class constants
     static final int MINIMUM_STUDENTS = 1;
     static final int STUDENTS_PER_TAXI = 10;
     static final int DONATION_PER_TAXI = 200;
