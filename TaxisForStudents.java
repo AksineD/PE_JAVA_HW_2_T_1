@@ -11,15 +11,15 @@ public class TaxisForStudents {
         scanner.close();
         processAndDisplayResults(numberOfStudents);
     }
-
     /**
-     * This method validates that the user enters a positive integer number of students.
+     * Prompts the user to enter the number of students and validates the input.
+     * Ensures the input is a positive integer, displaying an error message for invalid attempts.
      *
-     * @param scanner The scanner object used for reading input.
-     * @param prompt The message to display to the user.
-     * @param minValue The minimum acceptable value for the input.
-     * @param errorMessage The error message displayed when the input is below the minimum.
-     * @return The validated integer input representing the number of students.
+     * @param scanner The Scanner object used for input.
+     * @param prompt The message used to prompt the user.
+     * @param minValue The minimum valid value for the input.
+     * @param errorMessage The error message displayed for invalid input.
+     * @return The validated number of students entered by the user.
      */
     private static int getNumberOfStudents(Scanner scanner, String prompt, int minValue, String errorMessage) {
         int inputValue;
@@ -39,24 +39,55 @@ public class TaxisForStudents {
         }
     }
 
+    /**
+     * Calculates the number of full taxis required to accommodate the students.
+     *
+     * @param students The total number of students.
+     * @return The number of full taxis required.
+     */
     private static int calculateFullTaxis(int students) {
         return students / STUDENTS_PER_TAXI;
     }
 
+    /**
+     * Calculates the number of students left who cannot be accommodated in full taxis.
+     *
+     * @param students The total number of students.
+     * @return The number of remaining students.
+     */
     private static int calculateRemainingStudents(int students) {
         return students % STUDENTS_PER_TAXI;
     }
 
+    /**
+     * Calculates the total donation amount based on the number of taxis used.
+     *
+     * @param taxis The number of full taxis.
+     * @return The total donation amount.
+     */
     private static int calculateTotalDonation(int taxis) {
         return taxis * DONATION_PER_TAXI;
     }
 
+    /**
+     * Displays the results: number of full taxis, remaining students, and total donation.
+     *
+     * @param taxis The number of full taxis.
+     * @param remaining The number of remaining students.
+     * @param donation The total calculated donation.
+     */
     private static void displayResults(int taxis, int remaining, int donation) {
         System.out.println("Number of full taxis: " + taxis);
         System.out.println("Number of remaining students: " + remaining);
         System.out.println("Total donation: " + donation + " ₪");
     }
 
+    /**
+     * Handles the processing of student data, including calculations for required taxis,
+     * remaining students, and total donation, and displays the results.
+     *
+     * @param students The total number of students.
+     */
     private static void processAndDisplayResults(int students) {
         int fullTaxis = calculateFullTaxis(students);
         int remainingStudents = calculateRemainingStudents(students);
